@@ -21,7 +21,7 @@ public class UIPatientMenu {
             response = Integer.valueOf(sc.nextLine());
             switch (response){
                 case 1:
-                    showBookApointmentMenu();
+                    showBookAppointmentMenu();
                     break;
                 case 2:
                     showPatientMyAppointments();
@@ -32,7 +32,7 @@ public class UIPatientMenu {
             }
         }while (response !=0);
     }
-    private static void showBookApointmentMenu(){
+    private static void showBookAppointmentMenu(){
         int response = 0;
         do {
             System.out.println("::Book an appointmet");
@@ -69,7 +69,7 @@ public class UIPatientMenu {
                         doctorSelected,
                         doctorSelected.getAvailableApponitments().get(indexDate).getDate(null),
                         doctorSelected.getAvailableApponitments().get(indexDate).getTime());
-            showPatientMenu();
+                UIMenu.showPatientMenu();
             }
         }while (response !=0);
     }
@@ -78,7 +78,7 @@ public class UIPatientMenu {
         do {
             System.out.println("::My appointments:");
             if (UIMenu.patientLogged.getAppointmentDoctors().size() == 0){
-                System.out.println("You don't hace appointments");
+                System.out.println("You don't have appointments");
                 break;
             }
             for (int i = 0; i < UIMenu.patientLogged.getAppointmentDoctors().size(); i++) {

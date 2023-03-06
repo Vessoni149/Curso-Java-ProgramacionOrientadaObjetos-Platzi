@@ -26,14 +26,12 @@ public class UIMenu {
             switch (response){
                 case 1:
                     System.out.println("Doctor");
-                    authUser(1);
                     response = 0;
+                    authUser(1);
                     break;
                 case 2:
                     response = 0;
-                    showPatientMenu();
                     authUser(2);
-
                     break;
                 case 0:
                     System.out.println("Thank you for you visit");
@@ -84,7 +82,8 @@ public class UIMenu {
         int response = 0;
         do {
             System.out.println("\n\n");
-            System.out.println("model.Patient");
+            System.out.println("Patient");
+            System.out.println("Welcome: " + UIMenu.patientLogged.getName());
             System.out.println("1. Book an appointment");
             System.out.println("2. My appointments");
             System.out.println("0. Return");

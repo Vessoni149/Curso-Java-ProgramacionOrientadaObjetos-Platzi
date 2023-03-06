@@ -1,0 +1,418 @@
+Programación orientada a objetos:
+
+                            ABSTRACCIÓN:
+En la poo primero se analiza el problema, para poder después identificar los objetos que nos permitan modularizar el código. Las clases son nuestro modelo a partir del cual podremos crear nuestros objetos.
+La abstracción analiza un objeto para abstraer su composición (props y métodos) para hacer un molde (clase) más genéricos a partir del cual generemos los objetos más específicos para evitar sobreescribir un mismo código.
+Se utiliza mucho UML (Unified Modeling Language) es un lenguaje de modelado visual. Que proporciona una notación gráfica para representar los diferentes aspectos de un sistema de software, incluyendo la estructura, el comportamiento, la interacción y las relaciones entre los componentes del sistema.
+Con "Estado" se hace referencia a las propiedades de un objeto o clase.
+2)Modularidad: Este aspecto se abarca en 2 niveles, el más básico se verá en este curso, el segundo en el siguiente curso de programación funcional.
+En poo la modularidad es la posibilidad de subdividir un sistema en varios componentes.
+Permitirá reutilizar código, evitar colapsos, ya que cada módulo tiene una funcionalidad independiente de los otros. Por eso mismo también es más mantenible (podemos añadir nuevos elementos más facil) y que la legibilidad sea más rápida.
+Por lo general se crea una clase en cada archivo. Aunque hay excepciones de clases anidadas (dentro de otra clase) que veremos más adelante.
+Para instanciar un objeto a partir de una clase:
+nombre de Clase + nombre del objeto = new Clase():
+
+Doctor myDoctor = new Doctor();
+
+Para añadirle atributos y acceder a su método:
+
+myDoctor.name = "Alejandro Rodriguez";
+myDoctor.showName();
+
+Método constructor: al crear la clase Doctor nosotros no definimos el método constructor, podríamos, pero no hace falta porque el compilador de java nos porvée uno cuando no lo declaramos.
+Puede tener argumentos al ser utilizado para instanciar un objeto.
+Si hubiésemos creado la clase Doctor con el método constructor:
+
+Doctor(String name){
+    System.out.printIn("el nombre es "+ name);  Esto no asigna valor al nombre, solo imprimirá ese nombre en consola al instanciar el objeto.
+    this.name = name;    Esto sí va a permitir asignar el nombre al instanciar el objeto. Si no tuvieramos esto, habria que primero crear el objeto con New y luego asignarle en otra línea de codigo el nombre.
+}
+
+Podríamos al momento de instanciar su objeto, crear su nombre:
+
+Doctor myDoctor = new Doctor("Anahí Salgado");
+
+Luego si usamos Doctor.name = x; podemos cambiarle el nombre.
+
+
+                                STATIC
+Formas de llamar métodos de las clases:
+1) a partir del objeto instanciado de esa clase: objeto.método();
+2) definir el método de la clase como "static", y llamarlos a partir del nombre de la clase: clase.método(); sin instanciar el objeto.
+Tanto las variables como los métodos pueden ser "static".
+Se pueden invocar éstas variable o métodos sin que exista un objeto instanciado de esa clase.
+Scope (nivel de acceso) de elementos static:
+Si una clase A tiene un elemento static inicializado en su método constructor, podemos acceder con una clase C ClaseC.valor.
+Puede ser alterada por una clase B, y ser llamada por otra clase.
+La variable o método estático mantiene su ciclo de vida durante todo el programa.
+Si bien para utilizarla/o hay que usar Clase.método/propiedad, hay otra forma:
+Podemos importar el método o variable como static:
+
+import static java.lang.Math.*;
+
+El * es para traer todo de esa clase.
+Así en vez de tener que usar Clase.método, podemos usar el método directamente.
+
+
+                                FINAL
+Se usa para declarar una constante, datos guardados en memoria que no van a cambiar, por ej. un array de meses, o:
+
+public static final double PI = 3.1415926;
+
+Por convención se escribe todo en mayus.
+
+                              SOBRECARGA DE métodoS
+A veces necesitamos que 2 o más métodos tengan  el mismo nombre, pero sus argumentos sean diferentes (argumentos, tipos de dato de argumentos, valor de retorno).
+Los métodos constructores se pueden sobrecargar también.
+
+                              ENCAPSULAMIENTO
+Cuando instanciamos un objeto se le pueden asignar valores a sus atributos tanto en el método constructor al crearlo, o usando luego objeto.atributo = x;
+Pero si queremos limitar el acceso para las variables  ej. para que no se le pueda cambiar el nombre desde cualquier lado, existen los modificadores de acceso.
+Los modific. de acc. se usan tanto para clases, subclases y paquetes (si la clase está en otro paq. - archivo x ej.), como para variables y métodos.
+
+modificador       clase     package*     subclase      otros
+public              si          si          si          si
+protected           si          si          si          no
+default             si          si          no          no
+private             si          no          no          no
+
+Ej. si queremos que en una clase uno de sus atributos no puedan modificarse fuera de ella usamos private, y ese atributo lo tenemos que definir dentro del constrictor (dentro de las {}) con this.x = y;  No va a estar como parámetro del constructor, xq eso permitiría asignar ese atributo al instanciar el objeto.
+
+En donde querramos instanciar un objeto, ej Main, se nos va a decir que el método constructor de la Clase que queremos instanciar debe ser public.
+
+                            GETTERS Y SETTERS
+Son métodos que van en la clase para poder acceder a las variables y modificarlas.
+Los setters siempre serán void, ya que no retornan datos, y siempre tienen un parámetro (que es el atributo que va a modificar). Get sí retorna asi que hay que especificar que tipo de dato retornara, y no recibe parámetros.
+Con los setters podemos agregar conicionales (if) para modificar el dato, x ej si el atributo numeroTelefonico queremos que sea de x caracteres.
+Los métodos getters y setters pueden ser llamados desde el Main u otra clase y modificar y acceder a las variables de este método aunque estén declarados como privados.
+O sea, estos métodos eluden el encapsulamiento. Pero se hace de esa forma para tener modularizado el código. Ayudan a mantener la lógica y la consistencia de la lógica de negocio en nuestras clases.
+
+                            variables y objetos.
+Los tipos de dato primitivos no tienen métodos, no son objetos.
+Los arrays son objetos, que pueden contener tipos de dato primitivo u otros objetos.
+Los String tmb son objetos.
+Podemos a un tipo de dato primitivo ponerle una clase (wrapper) para poder manejar esos datos primitivos como un objeto, x ej un int hacerlo Integer para manipularlo.
+Las colecciones a dif de los arreglos, solo pueden almacenar objetos.
+Ej de coleccion:
+ArrayList<Objeto> objetoNombre = new ArrayList<>();
+Si necesito manejar una colección de enteros voy a tener que usar la clase wraper Integer y almacenarlos en una colección.
+
+La clase ArrayList permite almacenar datos en memoria de forma similar a los Arrays con la ventaja de que el número de elementos que almacena, es dinámico, es decir, que no es necesario declarar su tamaño.
+ArrayList<String> nombreArrayList = new ArrayList<String>();
+
+También existe una diferencia en el lugar donde se alojan las variables y los objetos en memoria.
+Las variables se almacenan directamente su valor.
+En los objetos, en cambio, lo que se almacena es la dirección en memoria del lugar donde realmente se almacena cada elemento del objeto.
+Lo que se almacena en la memoria stack sería el valor de las variables y esta dirección del objeto. Y en la memoria heap se almacenan los elementos del objeto.
+Cuando reasignamos el valor de un dato primitivo, la asignación es directa
+Cuando reasignamos un objeto a otro objeto, la asignación de datos es distinta, lo que se reasigna es la dirección en memoria.
+Cuando asignamos un objeto a otro, es decir "objeto1 = objeto2", no es lo mismo que asignar una
+    variable a otra. En el caso del objeto lo que sucede es que el objeto1 va a apuntar al espacio en memoria que está ocupando el objeto2. Ambos objetos ahora van a apuntar al mismo lugar, entonces si imprimimos objeto1 y objeto2 van a mostrar los mismos datos.
+    Con las variables, en cambio, si se sobreescribe el espacio en memoria. Es la ppal. dif. entre objetos y variables.
+
+                          CLASES ANIDADAS
+Es una clase dentro de otra.
+La padre se llama exterior y la otra interior.
+Se dividen en 2. Clases Internas (que pueden ser: locales a un método, o anonimas). Y clases estáticas anidadas.
+Si no tienen en método static, la clase no será estática anidada sino una clase interna.
+
+Estática anidada:
+1) La clase estática tmb tienen atributos y métodos. No necesitan crear instancias para llamarlas, no se necesita crear ningún objeto. Solo se pueden llamar a los métodos o variables que sean estáticos. Para llamar a una clase estática, se llama a partir del nombre de la clase.claseAnidada.
+Sá será necesario instanciar la clase exterior si no es estática, ej:
+
+Exterior.Interiorestática asd = new Exterior.Interiorestática();
+asd.métodoDeLaClaseestática
+
+
+2)Clases internas o no estática:
+Sí necesitan ser instanciadas, tanto la externa como la interna. Hay que crear 2 objetos, a dif de las estáticas, que solo se necesita instanciar la clase externa.
+A)Clases locales a un método:
+Hay una clase exterior y dentro un método, y dentro de este método se crea la clase local a un método. Lo importante es el scope, que solo alcanzará a ese método contenedor.
+Para acceder: primero se tiene que instanciar la clase contenedora para tener acceso al método. También hay que instanciar la clase interna dentro el método. Después llamar al método + . + nombreClaseInterna.
+ej:
+
+public class Enclosing{
+    void run(){
+        class local {
+            void run(){
+            }
+        }
+        Local local = new Local();
+        local.run();
+    }
+}
+
+En la clase main:
+
+public class Main{
+    public static void main(String[] args){
+        Enclosing enclosing = new Enclosing();
+        enclosing.run();
+    }
+}
+(video 17)
+
+B) Las clases anónimas se ven más adelante.
+
+
+                           ENUM
+Los enumerations son tipos de datos muy especiales, pues este, es el único en su tipo que sirve para declarar una colección de constantes, al ser así estaremos obligados a escribirlos con mayúsculas.
+
+Usaremos enum cada vez que necesitemos representar un conjunto fijo de constantes. Por ejemplo los días de la semana.
+
+public enum Day {
+	SUNDAY, MONDAY, TUESDAY, WEDNESDAY,
+	THURSDAY, FRIDAY, SATURDAY
+}
+
+Y puedo llamar un valor del enumeration así:
+
+Day.MONDAY;
+Day.FRIDAY;
+
+Los enumerations pueden tener atributos, métodos y constructores, como se muestra:
+public enum Day {
+  MONDAY("Lunes");
+  TUESDAY("Jueves");
+  FRIDAY("Viernes");
+  SATURDAY("Sábado");
+  SUNDAY("Domingo");
+
+  private String spanish;
+  private Day(String s) {
+    spanish = s;
+  }
+
+
+                            HERENCIA
+Busca crear nuevas clases a partir de otras. La idea es reutilizar código y no repetirnos (don't repeat yourself).
+Cuando usamos herencia necesitamos usar "extends superclase" al crear la clase hija.
+Y vamos a necesitar dentro del método constructor de la clase hija: super().
+Ej.:
+public class Doctor extends User{
+    private String speciality;
+    Doctor(String name, String email){
+        super(name,email);
+        this.speciality = speciality;
+    }
+}
+Super nos permite indicar que una variable o método pertenece a la clase padre, a diferencia de this, que indica que pertenece a la misma clase.
+
+Todas las clases heredan de la clase Ojetct. Por eso cuando escribamos clase. nos va a mostrar una lista de métodos tanto de la clase como de las clases de las que hereda.
+
+En java no se permite herencia multiple, solo se puede heredar de una sola clase. Pero en el caso de Object es heredado por todas las superclases y asi llegan a las clases hijas.
+
+Las clases abstractas son clases muy genéricas que no se pueden instanciar, solo se usan para heredar. Se verá más de esto en interfaces.
+Una excepción a esto es que puedo declarar un objeto de tipo de una clase abstracta, pero que instáncie a otra clase, ej:
+User user = new Doctor(...,...);
+Estaríamos creando un objeto de una clase abstracta, pero en realidad va a adquirir las características de Doctor.
+Esto se llama ligadura dinámica, pero va más alla del curso.
+
+
+                                POLIMORFISMO
+
+Posibilidad de sobreescribir un método con comportamientos diferentes.
+
+                        SOBREESCRITURA DE métodoS
+Cuando una clase hereda de otra y en esta clase hija se redefine un método con una implementación distinta a la clase padre, se está sobreescribiendo un método.
+Los métodos final o static no se pueden sobreescribir.
+Los constructores se pueden sobreescribir. Cuando una subclase usa los miembros heredados de la superclase con argumentos diferentes.
+Puedo sobreescribir métodos de Object.
+Cuando sobreescribimos un método arriba de este va a aparecer la anotacion @override.
+Ej: En una clase como User sobreescribimos el método toString de la clase Object:
+
+@Override
+    public String toString() {
+        return "model.User: " + name + ", Email: " + email + " Addres: "+ address + ". Phone: "+phoneNumber;
+    }
+
+En java el método toString se llama implícitamente. Si en Main nosotros llamamos a imprimir en consola a un objeto sin ningún método en especifico, se va a imprimir implícitamente el método toString. Explicitamente seria:
+System.out.printIn(objeto.toString);
+
+                            INTERFACES
+Son similares a las clases. Pero se enfocan en los comportamientos, también puede contener constantes.
+Básicamente agrupa métodos para luego ser heredados por otras clases.
+Una característica particular es que una clase puede heredar varias interfaces.
+Por lo general los nombres de las interfaces se vinculan a una actividad, por ello suelen terminar en ...able. También por convención su nombre debe iniciar con "I".
+Se implementan con la palabra reservada "implments".
+No importa el nivel de herencia donde esté la clase (padre, abuelo, bisnieto), se podrá implementar la interface.
+Añadir interfaces a una clase se llama composición de intefaces en clases.
+
+Los métodos de las interfaces son obligatorios de implementar en las clases donde se extienden.
+Pero a veces no neceistamos usar todos los métodos de una interface en la clase que la extiende. Eso se soluciona con clases abstractas.
+Una clase abstracta es una mezcla entre interfaz y herencia. En ella no implementaremos todos los métodos de la interfaz, nosotros definiremos que métodos serán obligatorios. Como ya se dijo, como es abstracta no se puede crear objetos de esa clase, no se puede intanciar. Ej de clase y método abstracto:
+
+public abstract class Figura {
+... abstract void dibujate();
+}
+
+class Triangulo extends Figura{
+}
+
+En el proyecto un ejemplo práctico de clase abstracta es la clase User.
+
+Las clases abstractas pueden tener métodos abstractos, como se ve en el ej de acá arriba. Los métodos abstractos si o si deben estar en una clase abstracta.
+Los métodos abstractos si son obligatorios de implementar en las clases hijas. Los métodos que no tengan la palabra reservada abstract serán opcionales. Esto soluionará el problema de las interfaces y su obligatoriedad de heredar todos sus métodos.
+Básicamente una clase abstracta con métodos abstractos vendría a suplir la funcionalidad de una interface. Posibilitando solo heredar los métodos abstractos de la clase abstracta. Si usamos clase abstracta con métodos abstractos o una interface dependerá de la lógica de nuestro proyecto
+
+El método abstracto que se crea en la clase abs., en el caso de nuestro proyecto, solo se inicializa -en User-, se le pone el nombre y (), pero no {}. Ya que su comportamiento lo vamos a definir en la clase que lo herede, sobreescribiéndolo.
+
+Hay una excepción para poder instanciar una clase abstracta sin tener que usar sus clases hijas, CON restricciones. Su instanciación no va a ser duradera, será solo para su momento de ejecución.
+Va a ser dándole una forma anónima a la clase abstracta.
+Las Clases Anónimas son una forma de instanciar clases abstractas sin necesidad de usar sus clases hijas. Pero este tipo de instanciación tiene algunas restricciones: el ciclo de vida de estas instancias NO es duradero, no las tendremos disponibles durante toda la ejecución del programa.
+Clase abstracta y anónima son conceptos muy similares, o lo mismo, sólo que es otra forma de instanciar la clase  sin que tenga una clase padre construyendo a la hija.
+Entonces las clases anónimas son sólo una forma de instanciar, sin necesidad de usar una clase padre (podría instanciar directamente algo de la clase "abuela")
+Puedo x ej instanciar un objeto de tipo User directamente de User, no de las clases hijas de User.
+Si usamos el atajo del IDE nos va a traer su método abstracto.
+
+User user = new User(asd,asw){
+    @Override
+    public void showDataUser(){
+   }
+}
+
+No podríamos reutilizar el comportamiento de este objeto en otra clase por ser anónima.
+
+Supongamos que tenemos una interface MonitoringSystem con un método que van a usar varias clases pero de forma distinta (se sobreescribirá).
+Podemos hacer lo siguiente:
+MonitoringSystem generalModule = new MonitoringSystem() {
+@Override
+   public void startMonitoring() {
+       System.out.println("¡El seguimiento de los indicadores globales ha comenzado!");
+   }
+};
+Pero hace tiempo que sabemos que no se pueden crear objetos de interfaz.
+
+Así es, no puedes. De hecho, no lo hacemos.
+
+El momento en que escribimos:
+
+MonitoringSystem generalModule = new MonitoringSystem() {
+};
+dentro de la máquina Java, ocurre lo siguiente:
+
+Se crea una clase Java sin nombre que implementa la interfaz MonitoringSystem.
+El compilador, al ver dicha clase, requiere que se implementen todos los métodos de la interfaz MonitoringSystem (lo hicimos 3 veces).
+Se crea un objeto de esta clase.
+
+Entonces, las clases anónimas permiten instanciar clases abstratas e interfaces.
+
+Para más info ver:
+https://javadesdecero.es/poo/clases-internas-anonimas/
+
+(Java hace 1 hora: las clases son como moldecitos para crear objetos, solo debemos instanciarlas…
+ Java hace 30 minutos: bueno, también existen las clases con métodos estáticos, estas funciones se pueden llamar/ejecutar sin necesidad de instanciar las clases…
+ Java hace 10 minutos: bueno, también existen las clases abstractas, son clases que nunca instanciamos pero que nos permiten definir métodos opcionales u obligatorios de implementar en las clases que hereden de ellas…
+ Java Ahora: bueno, también existen las clases anónimas, son un “hack” para instanciar clases abstractas…).
+
+Las interfaces pueden heredar de otras interfaces utilizando la palabra clave extends, el concepto de herencia se aplicará como naturalmente se practica en clases, es decir, la interfaz heredará y adquirirá los métodos de la interfaz padre.
+
+Una cosa interesante que sucede en caso de herencia con interfaces es que, aquí sí es permitido la herencia múltiple. Además siguiendo las implementaciones de métodos default y private de las versiones Java 8 y 9 respectivamente podemos sobreescribir métodos y añadirles comportamiento, si es el caso.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(                            COLLECTIONS
+Otras interfaces que son muy importantes en Java son los llamados Collections.
+Los Collections nos van a servir para trabajar con colecciones de datos, específicamente y solamente con objetos, para esto recuerda que tenemos disponibles nuestras clases Wrapper que nos ayudan a convertir datos primitivos a objetos.
+Los collections se diferencian de los arrays en que su tamaño no es fijo y por el contrario es dinámico.
+Viendo a las collections como ramas de herencia, en lo alto esta la interfaz Collection. para lo cual, partiendo de su naturalidad de interface, entendemos que tiene una serie de métodos “básicos” dónde su comportamiento será definido a medida que se vaya implementando en más elementos. De ella se desprenden principalmente las interfaces Set y List.
+
+La interface Set tendrá las siguientes características:
+Almacena objetos únicos, no repetidos.
+La mayoría de las veces los objetos se almacenarán en desorden.
+No tenemos índice.
+La interface List tiene éstas características:
+Puede almacenar objetos repetidos.
+Los objetos se almacenan en orden secuencial.
+Tenemos acceso al índice.
+
+Si seguimos analizando las familias tenemos que de Set se desprenden:
+Clase HashSet
+Interfaz SortedSet y de ella la clase TreeSet.
+HashSet los elementos se guardan en desorden y gracias al mecanismo llamado hashing (obtiene un identificador del objeto) permite almacenar objetos únicos.
+TreeSet almacena objetos únicos, y gracias a su estructura de árbol el *acceso es sumamente rápido.
+Ahora si analizamos la familia List, de ella se desprenden:
+Clase ArrayList puede tener duplicados, no está sincronizada por lo tanto es más rápida
+Clase Vector es sincronizada, los datos están más seguros pero es más lento.
+Clase LinkedList, puede contener elementos duplicados, no está sincronizada (es más rápida) al ser una estructura de datos doblemente ligada podemos añadir datos por encima de la pila o por debajo.
+
+Sigamos con Map
+Lo primero que debes saber es que tiene tres implementaciones:
+HashTable
+LinkedHashMap
+HashMap
+SortedMap ➡️ TreeMap
+
+La interfaz Map no hereda de la interfaz Collection porque representa una estructura de datos de Mapeo y no de colección simple de objetos. Esta estructura es más compleja, pues cada elemento deberá venir en pareja con otro dato que funcionará como la llave del elemento.
+
+Map
+
+Donde K es el key o clave
+Donde V es el value o valor
+
+Podemos declarar un map de la siguiente forma:
+
+Map<Integer, String> map = new HashMap<Integer, String>();
+Map<Integer, String> treeMap = new TreeMap<Integer, String>();
+Map<Integer, String> linkedHashMap = new LinkedHashMap<Integer, String>();
+Como observas solo se puede construir el objeto con tres elementos que implementan de ella: HashMap, TreeMap y LinkedHashMap dejando fuera HashTable y SortedMap. SortedMap estará fuera pues es una interfaz y HashTable ha quedado deprecada pues tiene métodos redundantes en otras clases. Mira la funcionalidad de cada uno.
+
+Como te conté hace un momento Map tiene implementaciones:
+
+HashMap: Los elementos no se ordenan. No aceptan claves duplicadas ni valores nulos.
+LinkedHashMap: Ordena los elementos conforme se van insertando; provocando que las búsquedas sean más lentas que las demás clases.
+TreeMap: El Mapa lo ordena de forma “natural”. Por ejemplo, si la clave son valores enteros (como luego veremos), los ordena de menos a mayor.
+
+Para iterar alguno de estos será necesario utilizar la interface Iterator y para recorrerlo lo haremos un bucle while así como se muestra:
+
+Para HashMap
+// Imprimimos el Map con un Iterador
+Iterator it = map.keySet().iterator();
+while(it.hasNext()){
+  Integer key = it.next();
+  System.out.println("Clave: " + key + " -> Valor: " + map.get(key));
+}
+Para LinkedHashMap
+// Imprimimos el Map con un Iterador
+Iterator it = linkedHashMap.keySet().iterator();
+while(it.hasNext()){
+  Integer key = it.next();
+  System.out.println("Clave: " + key + " -> Valor: " + linkedHashMap.get(key));
+}
+Para TreeMap
+// Imprimimos el Map con un Iterador
+Iterator it = treeMap.keySet().iterator();
+while(it.hasNext()){
+  Integer key = it.next();
+  System.out.println("Clave: " + key + " -> Valor: " + treeMap.get(key));
+}
+                                       )
+
+
